@@ -10,12 +10,28 @@
 }
 
 html {
+    font-family: 'Montserrat', sans-serif;
     font-size: 62.5%;
 }
 
 body{
     font-size: 2rem;
     color: var(--font-color);
+}
+
+svg{
+    fill: var(--font-color);
+}
+
+.nav-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-title{
+    text-align: center;
+    font-size: 1.4rem;
 }
 
 .music-player{
@@ -47,7 +63,8 @@ body{
 }
 
 .album-cover{
-    margin-block: 4rem;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
     position: relative;
     display: flex;
     justify-content: center;

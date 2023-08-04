@@ -7,7 +7,11 @@ export const MusicPlayer = () => {
   const artists = music.artists
   return (
     <section className='music-player'>
-      <h1>Music Player</h1>
+      <section className='nav-container'>
+        <svg role='img' height='24' width='24' aria-hidden='true' viewBox='0 0 24 24' data-encore-id='icon' class='Svg-sc-ytk21e-0 haNxPq'><path className='hey' d='M2.793 8.043a1 1 0 0 1 1.414 0L12 15.836l7.793-7.793a1 1 0 1 1 1.414 1.414L12 18.664 2.793 9.457a1 1 0 0 1 0-1.414z' /></svg>
+        <h1 className='player-title'>MY PLAYLIST PLAYER</h1>
+        <svg role='img' height='24' width='24' aria-hidden='true' viewBox='0 0 24 24' data-encore-id='icon' class='Svg-sc-ytk21e-0 haNxPq'><path d='M4.5 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm15 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-7.5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z' /></svg>
+      </section>
       {music
         ? <section className='music-container'>
           <div className={`album-cover ${isPlaying ? 'rotate' : ''}`}>

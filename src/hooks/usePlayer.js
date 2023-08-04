@@ -62,7 +62,6 @@ export const usePlayer = ({ initialMusicId }) => {
 
   useEffect(() => {
     const autoReplay = () => {
-      
       if (isReplaying) {
         audioRef.current.currentTime = 0
         audioRef.current.play()
