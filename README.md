@@ -1,0 +1,1 @@
+Front-End of music player app made with ReactJS
