@@ -12,38 +12,52 @@ export const usePlayer = ({ initialMusicId }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isReplaying, setReplay] = useState(false)
   const audioRef = useRef(new window.Audio(dummyMusic[musicId].url))
-  const maxId = (dummyMusic.length - 1)
+  const maxId = dummyMusic.length
 
   const music = dummyMusic[musicId]
 
   const playNextSong = () => {
-    const newId = musicId + 1
-    if (newId <= maxId) {
-      audioRef.current.src = dummyMusic[newId].url
-      audioRef.current.play()
-      setIsPlaying(true)
-      setMusicId(newId)
-    } else {
-      audioRef.current.src = dummyMusic[0].url
-      audioRef.current.play()
-      setIsPlaying(true)
-      setMusicId(0)
-    }
+    // const newId = musicId + 1
+    // if (newId <= maxId) {
+    //   audioRef.current.src = dummyMusic[newId].url
+    //   audioRef.current.play()
+    //   setIsPlaying(true)
+    //   setMusicId(newId)
+    // } else {
+    //   audioRef.current.src = dummyMusic[0].url
+    //   audioRef.current.play()
+    //   setIsPlaying(true)
+    //   setMusicId(0)
+    // }
+
+    // bard
+    const newId = (musicId + 1) % maxId
+    audioRef.current.src = dummyMusic[newId].url
+    audioRef.current.play()
+    setIsPlaying(true)
+    setMusicId(newId)
   }
 
   const playPreviousSong = () => {
-    const newId = musicId - 1
-    if (newId < 0) {
-      audioRef.current.src = dummyMusic[maxId].url
-      audioRef.current.play()
-      setIsPlaying(true)
-      setMusicId(maxId)
-    } else {
-      audioRef.current.src = dummyMusic[newId].url
-      audioRef.current.play()
-      setIsPlaying(true)
-      setMusicId(newId)
-    }
+    // const newId = musicId - 1
+    // if (newId < 0) {
+    //   audioRef.current.src = dummyMusic[maxId].url
+    //   audioRef.current.play()
+    //   setIsPlaying(true)
+    //   setMusicId(maxId)
+    // } else {
+    //   audioRef.current.src = dummyMusic[newId].url
+    //   audioRef.current.play()
+    //   setIsPlaying(true)
+    //   setMusicId(newId)
+    // }
+
+    // bard
+    const newId = (musicId - 1 + maxId) % maxId
+    audioRef.current.src = dummyMusic[newId].url
+    audioRef.current.play()
+    setIsPlaying(true)
+    setMusicId(newId)
   }
 
   const playSongHandler = () => {
@@ -63,13 +77,11 @@ export const usePlayer = ({ initialMusicId }) => {
   useEffect(() => {
     const autoReplay = () => {
       if (isReplaying) {
-        audioRef.current.currentTime = 0
         audioRef.current.play()
       } else {
         playNextSong()
       }
     }
-
     audioRef.current.addEventListener('ended', autoReplay)
 
     return () => {

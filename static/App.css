@@ -43,16 +43,13 @@ svg{
     flex-direction: column;
     justify-content: space-between;
     padding: 10%;
-    background-color: var(--background-theme);
+    background: rgb(80,64,64);
+    background: linear-gradient(180deg, rgba(80,64,64,1) 0%, rgba(0,0,0,1) 69%, rgba(0,0,0,0.9416141456582633) 100%);;
 }
 
 .control-panel{
     display: flex;
     justify-content: space-between;
-}
-
-.control-panel > button{
-    line-height: 3rem;
 }
 
 .music-container{
@@ -81,7 +78,7 @@ svg{
     content: '';
     position: absolute;
     background-color: #5e5e5e;
-    width: 7rem;
+    width: 8rem;
     aspect-ratio: 1;
     border-radius: 100%;
 }
@@ -90,12 +87,11 @@ svg{
     content: '';
     position: absolute;
     background-color: var(--background-theme);
-    width: 6rem;
-    height: 3rem;
-    aspect-ratio: 1;
-    border-top-left-radius: 3rem;
-    border-top-right-radius: 3rem;
-    margin-top: -3rem;
+    width: 8rem;
+    height: 4rem;
+    border-top-left-radius: 4rem;
+    border-top-right-radius: 4rem;
+    margin-top: -4rem;
 }
 
 @keyframes rotate-center {
@@ -109,4 +105,38 @@ svg{
 
 .rotate {
 	animation: rotate-center 5s linear infinite;
+}
+
+.control-btn{
+    background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	outline: inherit;
+    font-size: 2.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.play-btn{
+    background-color: #fff;
+}
+
+.music-name{
+    margin-bottom: 0.8rem;
+}
+
+.speed-rate{
+    z-index: 1;
+    position: absolute;
+    background: rgb(18,18,18);
+    background: linear-gradient(24deg, rgba(18,18,18,1) 0%, rgba(94,94,94,1) 100%);
+    height: 1rem;
+    width: 1rem;
+    border-radius: 100%;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
 }
