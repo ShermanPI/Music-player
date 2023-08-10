@@ -50,6 +50,7 @@ svg{
 .control-panel{
     display: flex;
     justify-content: space-between;
+    position: relative;
 }
 
 .music-container{
@@ -139,4 +140,12 @@ svg{
     display: flex;
     justify-content: center;
     padding-top: 1rem;
+}
+
+.panel-volume{
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    position: absolute;
+    left: 4px;
+    bottom: 2rem;
 }
