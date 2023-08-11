@@ -27,7 +27,9 @@ export const MusicPlayer = () => {
         : null}
 
       <section className='control-panel'>
-        <input type='range' min='0' max='100' step='5' defaultValue='20' onInput={volumeHandler} className='panel-volume' />
+        <div className='panel-volume'>
+          <input type='range' min='0' max='100' step='2' defaultValue='20' onInput={volumeHandler} />
+        </div>
         <ControlBtn buttonContent={icons.volumeIcon} />
         <ControlBtn buttonContent={icons.playBackwardsIcon} handleClick={playPreviousSong} />
         <ControlBtn

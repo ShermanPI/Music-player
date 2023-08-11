@@ -113,11 +113,11 @@ svg{
 	border: none;
 	padding: 0;
 	cursor: pointer;
-	outline: inherit;
-    font-size: 2.3rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
 .play-btn{
@@ -143,9 +143,19 @@ svg{
 }
 
 .panel-volume{
-    transform: rotate(-90deg);
-    transform-origin: left top;
     position: absolute;
-    left: 4px;
-    bottom: 2rem;
+    background: rgba(36, 36, 36, 0.642);
+    height: 19rem;
+    width: 3.8rem;
+    left: -0.7rem;
+    bottom: -0.8rem;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 3rem;
+}
+
+input[type="range"] {
+    transform: rotate(-90deg);
+    accent-color: rgb(26, 128, 0);
 }
