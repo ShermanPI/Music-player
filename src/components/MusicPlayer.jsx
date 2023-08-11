@@ -5,7 +5,7 @@ import { usePlayer } from '../hooks/usePlayer'
 import { ControlBtn } from './ControlButton'
 
 export const MusicPlayer = () => {
-  const { music, isPlaying, isReplaying, volumeHandler, playPreviousSong, playNextSong, playSongHandler, replayHandler } = usePlayer({ initialMusicId: 0 })
+  const { music, isPlaying, isReplaying, songDuration, volumeHandler, playPreviousSong, playNextSong, playSongHandler, replayHandler } = usePlayer({ initialMusicId: 0 })
   const [isPanelVolumeActive, setVolumePanelActive] = useState(false)
   const artists = music.artists
 
@@ -32,6 +32,17 @@ export const MusicPlayer = () => {
           <p className='artist-names'>{artists.length > 1 ? artists.map((el, i) => i === (artists.length - 1) ? el : `${el}, `) : artists}</p>
         </section>
         : null}
+
+      <section className='progress-section'>
+        <div className='progress-bar'>
+          <div className='progress-line' />
+        </div>
+
+        <div className='progress-time'>
+          <p className='actual-time'>00:00</p>
+          <p className='finish-time'>{songDuration}</p>
+        </div>
+      </section>
 
       <section className='control-panel'>
         <div className={`panel-volume ${isPanelVolumeActive ? '' : 'inactive'}`}>

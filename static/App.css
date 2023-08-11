@@ -126,7 +126,7 @@ svg{
 }
 
 .music-name{
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.5rem;
 }
 
 .speed-rate{
@@ -167,4 +167,25 @@ input[type="range"] {
 
 .icon-active{
     fill: var(--active-icon-color);
+}
+
+.progress-bar{
+    background-color: #4d4d4d;
+    height: 0.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.progress-line{
+    height: 2rem;
+    width: 50%;
+    background-color: aqua;
+}
+
+.progress-time{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
 }

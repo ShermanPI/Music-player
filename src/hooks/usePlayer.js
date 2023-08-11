@@ -1,17 +1,24 @@
 import { useState, useRef, useEffect } from 'react'
 
 const dummyMusic = [
-  { id: 'M-1111', albumImg: '../static/img/monarca.jpg', name: 'Progreso', artists: ['Eladio Carrion'], url: '../../static/music/Progreso.mp3' },
+  { id: 'M-1111', albumImg: '../static/img/monarca.jpg', name: 'Progreso', artists: ['Eladio Carrion'], url: '../../static/music/Progreso.mp3', duration: '100000' },
   { id: 'M-2222', albumImg: '../static/img/3MEN2 KBRN.png', name: 'Coco Chanel', artists: ['Eladio Carrion', 'Bad Bunny'], url: '../../static/music/Coco Chanel.mp3' },
   { id: 'M-3333', albumImg: '../static/img/minina.png', name: 'Minina', artists: ['Carree, Spreen'], url: '../../static/music/minina.mp3' },
   { id: 'M-4444', albumImg: '../static/img/Sauce Boyz.jpg', name: 'Kemba Walker', artists: ['Eladio Carrion', 'Bad Bunny', 'Shermanius'], url: '../../static/music/Kemba Walker.mp3' }
 ]
+
+function millisToMinutesAndSeconds (millis) {
+  const minutes = Math.floor(millis / 60000)
+  const seconds = ((millis % 60000) / 1000).toFixed(0)
+  return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
+}
 
 export const usePlayer = ({ initialMusicId }) => {
   const [musicId, setMusicId] = useState(initialMusicId)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isReplaying, setReplay] = useState(false)
   const audioRef = useRef(new window.Audio(dummyMusic[musicId].url))
+  const [songDuration, setSongDuration] = useState(millisToMinutesAndSeconds(dummyMusic[musicId].duration))
   const maxId = dummyMusic.length
 
   const music = dummyMusic[musicId]
@@ -36,6 +43,7 @@ export const usePlayer = ({ initialMusicId }) => {
     audioRef.current.play()
     setIsPlaying(true)
     setMusicId(newId)
+    console.log(audioRef.current.duration, audioRef.current)
   }
 
   const playPreviousSong = () => {
@@ -103,6 +111,7 @@ export const usePlayer = ({ initialMusicId }) => {
     music,
     isPlaying,
     isReplaying,
+    songDuration,
     volumeHandler,
     playNextSong,
     playPreviousSong,
