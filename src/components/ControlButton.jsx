@@ -1,5 +1,5 @@
-export const ControlBtn = ({ buttonContent, handleClick }) => {
+export const ControlBtn = ({ buttonContent, onClick }) => {
   return (
-    <button onClick={handleClick} className='control-btn'>{buttonContent}</button>
+    <button onClick={onClick} className='control-btn'>{buttonContent}</button>
   )
 }

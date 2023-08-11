@@ -7,6 +7,7 @@
 :root{
     --background-theme: #121212;
     --font-color: #fff;
+    --active-icon-color: green;
 }
 
 html {
@@ -158,4 +159,12 @@ svg{
 input[type="range"] {
     transform: rotate(-90deg);
     accent-color: rgb(26, 128, 0);
+}
+
+.inactive{
+    visibility: hidden;
+}
+
+.icon-active{
+    fill: var(--active-icon-color);
 }
