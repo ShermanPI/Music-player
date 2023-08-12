@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 
 const dummyMusic = [
-  { id: 'M-1111', albumImg: '../static/img/monarca.jpg', name: 'Progreso', artists: ['Eladio Carrion'], url: '../../static/music/Progreso.mp3', duration: '100000' },
-  { id: 'M-2222', albumImg: '../static/img/3MEN2 KBRN.png', name: 'Coco Chanel', artists: ['Eladio Carrion', 'Bad Bunny'], url: '../../static/music/Coco Chanel.mp3' },
-  { id: 'M-3333', albumImg: '../static/img/minina.png', name: 'Minina', artists: ['Carree, Spreen'], url: '../../static/music/minina.mp3' },
-  { id: 'M-4444', albumImg: '../static/img/Sauce Boyz.jpg', name: 'Kemba Walker', artists: ['Eladio Carrion', 'Bad Bunny', 'Shermanius'], url: '../../static/music/Kemba Walker.mp3' }
+  { id: 'M-1111', albumImg: '../static/img/monarca.jpg', name: 'Progreso', artists: ['Eladio Carrion'], url: '../../static/music/Progreso.mp3', duration: 100000 },
+  { id: 'M-2222', albumImg: '../static/img/3MEN2 KBRN.png', name: 'Coco Chanel', artists: ['Eladio Carrion', 'Bad Bunny'], url: '../../static/music/Coco Chanel.mp3', duration: 190000 },
+  { id: 'M-3333', albumImg: '../static/img/minina.png', name: 'Minina', artists: ['Carree, Spreen'], url: '../../static/music/minina.mp3', duration: 150000 },
+  { id: 'M-4444', albumImg: '../static/img/Sauce Boyz.jpg', name: 'Kemba Walker', artists: ['Eladio Carrion', 'Bad Bunny', 'Shermanius'], url: '../../static/music/Kemba Walker.mp3', duration: 200000 }
 ]
 
 export const usePlayer = ({ initialMusicId }) => {
@@ -23,56 +23,27 @@ export const usePlayer = ({ initialMusicId }) => {
 
     if (isPlaying) {
       timeIntervalId = setInterval(() => {
-        console.log('SE HA EJECUTADO EL CAALLBACK DEL INTERVAL', 'DUracion: ', songDuration, 'actual ', songTimeProgress)
         const newSongProgress = songTimeProgress
         setSongTimeProgress(newSongProgress + 1000)
       }, 1000)
     }
 
     return () => {
-      console.log('se ha limpiado la vaina')
       clearInterval(timeIntervalId)
     }
   }, [isPlaying, songTimeProgress])
 
   const playNextSong = () => {
-    // const newId = musicId + 1
-    // if (newId <= maxId) {
-    //   audioRef.current.src = dummyMusic[newId].url
-    //   audioRef.current.play()
-    //   setIsPlaying(true)
-    //   setMusicId(newId)
-    // } else {
-    //   audioRef.current.src = dummyMusic[0].url
-    //   audioRef.current.play()
-    //   setIsPlaying(true)
-    //   setMusicId(0)
-    // }
-
-    // bard
     const newId = (musicId + 1) % maxId
     audioRef.current.src = dummyMusic[newId].url
     audioRef.current.play()
     setIsPlaying(true)
     setMusicId(newId)
-    console.log(audioRef.current.duration, audioRef.current)
+    setSongDuration(dummyMusic[newId].duration)
+    setSongTimeProgress(0)
   }
 
   const playPreviousSong = () => {
-    // const newId = musicId - 1
-    // if (newId < 0) {
-    //   audioRef.current.src = dummyMusic[maxId].url
-    //   audioRef.current.play()
-    //   setIsPlaying(true)
-    //   setMusicId(maxId)
-    // } else {
-    //   audioRef.current.src = dummyMusic[newId].url
-    //   audioRef.current.play()
-    //   setIsPlaying(true)
-    //   setMusicId(newId)
-    // }
-
-    // bard
     const newId = (musicId - 1 + maxId) % maxId
     audioRef.current.src = dummyMusic[newId].url
     audioRef.current.play()
@@ -114,8 +85,6 @@ export const usePlayer = ({ initialMusicId }) => {
   }, [])
 
   const volumeHandler = (e) => {
-    // console.log(this)
-    // console.log(e.target.value)
     audioRef.current.volume = (e.target.value / 100)
   }
 

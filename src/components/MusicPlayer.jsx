@@ -41,7 +41,7 @@ export const MusicPlayer = () => {
 
       <section className='progress-section'>
         <div className='progress-bar'>
-          <div className='progress-line' />
+          <div className='progress-line' style={{ left: `-${100 - (songTimeProgress / songDuration * 100)}%` }} />
         </div>
 
         <div className='progress-time'>
