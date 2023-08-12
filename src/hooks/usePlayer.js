@@ -7,21 +7,33 @@ const dummyMusic = [
   { id: 'M-4444', albumImg: '../static/img/Sauce Boyz.jpg', name: 'Kemba Walker', artists: ['Eladio Carrion', 'Bad Bunny', 'Shermanius'], url: '../../static/music/Kemba Walker.mp3' }
 ]
 
-function millisToMinutesAndSeconds (millis) {
-  const minutes = Math.floor(millis / 60000)
-  const seconds = ((millis % 60000) / 1000).toFixed(0)
-  return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
-}
-
 export const usePlayer = ({ initialMusicId }) => {
   const [musicId, setMusicId] = useState(initialMusicId)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isReplaying, setReplay] = useState(false)
+  const [songDuration, setSongDuration] = useState(dummyMusic[musicId].duration)
+  const [songTimeProgress, setSongTimeProgress] = useState(0)
   const audioRef = useRef(new window.Audio(dummyMusic[musicId].url))
-  const [songDuration, setSongDuration] = useState(millisToMinutesAndSeconds(dummyMusic[musicId].duration))
   const maxId = dummyMusic.length
 
   const music = dummyMusic[musicId]
+
+  useEffect(() => {
+    let timeIntervalId
+
+    if (isPlaying) {
+      timeIntervalId = setInterval(() => {
+        console.log('SE HA EJECUTADO EL CAALLBACK DEL INTERVAL', 'DUracion: ', songDuration, 'actual ', songTimeProgress)
+        const newSongProgress = songTimeProgress
+        setSongTimeProgress(newSongProgress + 1000)
+      }, 1000)
+    }
+
+    return () => {
+      console.log('se ha limpiado la vaina')
+      clearInterval(timeIntervalId)
+    }
+  }, [isPlaying, songTimeProgress])
 
   const playNextSong = () => {
     // const newId = musicId + 1
@@ -112,6 +124,7 @@ export const usePlayer = ({ initialMusicId }) => {
     isPlaying,
     isReplaying,
     songDuration,
+    songTimeProgress,
     volumeHandler,
     playNextSong,
     playPreviousSong,

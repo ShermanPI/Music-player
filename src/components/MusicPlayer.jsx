@@ -4,8 +4,14 @@ import { icons } from '../../static/svg/icons'
 import { usePlayer } from '../hooks/usePlayer'
 import { ControlBtn } from './ControlButton'
 
+function millisToMinutesAndSeconds (millis) {
+  const minutes = Math.floor(millis / 60000)
+  const seconds = ((millis % 60000) / 1000).toFixed(0)
+  return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
+}
+
 export const MusicPlayer = () => {
-  const { music, isPlaying, isReplaying, songDuration, volumeHandler, playPreviousSong, playNextSong, playSongHandler, replayHandler } = usePlayer({ initialMusicId: 0 })
+  const { music, isPlaying, isReplaying, songDuration, songTimeProgress, volumeHandler, playPreviousSong, playNextSong, playSongHandler, replayHandler } = usePlayer({ initialMusicId: 0 })
   const [isPanelVolumeActive, setVolumePanelActive] = useState(false)
   const artists = music.artists
 
@@ -39,8 +45,8 @@ export const MusicPlayer = () => {
         </div>
 
         <div className='progress-time'>
-          <p className='actual-time'>00:00</p>
-          <p className='finish-time'>{songDuration}</p>
+          <p className='actual-time'>{millisToMinutesAndSeconds(songTimeProgress)}</p>
+          <p className='finish-time'>{millisToMinutesAndSeconds(songDuration)}</p>
         </div>
       </section>
 

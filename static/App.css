@@ -7,7 +7,7 @@
 :root{
     --background-theme: #121212;
     --font-color: #fff;
-    --active-icon-color: green;
+    --active-icon-color: rgb(133, 215, 154);
 }
 
 html {
@@ -45,7 +45,7 @@ svg{
     justify-content: space-between;
     padding: 10%;
     background: rgb(80,64,64);
-    background: linear-gradient(180deg, rgba(80,64,64,1) 0%, rgba(0,0,0,1) 69%, rgba(0,0,0,0.9416141456582633) 100%);;
+    background: linear-gradient(180deg, rgb(133, 215, 154) 0%, rgba(0, 0, 0, 0.948) 60%, rgba(0, 0, 0, 0.948) 60%, rgb(0, 0, 0) 100%);;
 }
 
 .control-panel{
@@ -145,7 +145,7 @@ svg{
 
 .panel-volume{
     position: absolute;
-    background: rgba(36, 36, 36, 0.642);
+    background: rgba(36, 36, 36, 0.934);
     height: 19rem;
     width: 3.8rem;
     left: -0.7rem;
@@ -158,7 +158,7 @@ svg{
 
 input[type="range"] {
     transform: rotate(-90deg);
-    accent-color: rgb(26, 128, 0);
+    accent-color: var(--active-icon-color);
 }
 
 .inactive{
@@ -178,7 +178,9 @@ input[type="range"] {
 
 .progress-line{
     height: 2rem;
-    width: 50%;
+    width: 100%;
+    position: relative;
+    left: -100%;
     background-color: aqua;
 }
 
