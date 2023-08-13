@@ -54,6 +54,23 @@ svg{
     position: relative;
 }
 
+.control-panel button:nth-child(n+1){
+    background-color: red;
+    width: 9%;
+}
+
+/* play-btn */
+.control-panel button:nth-child(4){
+    border-radius: 50%;
+    background-color: white;
+    width: 17%;
+    aspect-ratio: 1;
+}
+
+.control-panel button:nth-child(4) svg{
+    fill: #000;
+}
+
 .music-container{
     width: 100%;
     display: flex;

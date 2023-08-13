@@ -49,6 +49,8 @@ export const usePlayer = ({ initialMusicId }) => {
     audioRef.current.play()
     setIsPlaying(true)
     setMusicId(newId)
+    setSongDuration(dummyMusic[newId].duration)
+    setSongTimeProgress(0)
   }
 
   const playSongHandler = () => {
@@ -69,6 +71,7 @@ export const usePlayer = ({ initialMusicId }) => {
     const autoReplay = () => {
       if (isReplaying) {
         audioRef.current.play()
+        setSongTimeProgress(0)
       } else {
         playNextSong()
       }
