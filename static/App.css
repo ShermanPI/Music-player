@@ -18,6 +18,9 @@ html {
 body{
     font-size: 2rem;
     color: var(--font-color);
+    background: #121212;
+    background: linear-gradient(180deg, rgb(133, 215, 154) 0%, #121212 60%, #121212 60%, #121212 100%);
+
 }
 
 svg{
@@ -39,13 +42,19 @@ svg{
     display: flex;
     overflow: hidden;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
+    max-width: 60rem;
     margin-inline: auto;
     flex-direction: column;
     justify-content: space-between;
-    padding: 10%;
-    background: rgb(80,64,64);
-    background: linear-gradient(180deg, rgb(133, 215, 154) 0%, rgba(0, 0, 0, 0.948) 60%, rgba(0, 0, 0, 0.948) 60%, rgb(0, 0, 0) 100%);;
+    padding: calc(2vw + 3rem);
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .music-player{
+        padding: 4rem;
+    }
 }
 
 .control-panel{
@@ -148,6 +157,10 @@ svg{
     margin-bottom: 0.5rem;
 }
 
+.artist-names{
+    margin-bottom: 0.5rem;
+}
+
 .speed-rate{
     z-index: 1;
     position: absolute;
@@ -164,11 +177,10 @@ svg{
 
 .volume-container{
     position: relative;
-    /* background-color:rgb(127, 138, 255); */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* width: 50%; */
+    width: 9%;
 }
 
 .volume-container > button{
