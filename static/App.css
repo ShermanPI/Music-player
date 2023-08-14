@@ -19,7 +19,7 @@ body{
     font-size: 2rem;
     color: var(--font-color);
     background: #121212;
-    background: linear-gradient(180deg, rgb(133, 215, 154) 0%, #121212 60%, #121212 60%, #121212 100%);
+    background: linear-gradient(180deg, var(--active-icon-color) 0%, #121212 60%, #121212 100%);
 
 }
 
@@ -50,12 +50,7 @@ svg{
     padding: calc(2vw + 3rem);
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-    .music-player{
-        padding: 4rem;
-    }
-}
+
 
 .control-panel{
     display: flex;
@@ -190,7 +185,7 @@ svg{
 .panel-volume {
     position: absolute;
     top: 0.2rem;
-    left: -0.6rem;
+    left: calc(40% - 1.5rem);
     padding: 0.6rem 1.8rem;
     padding-top: 0.7rem;
     border-radius: 3rem;
@@ -220,7 +215,7 @@ svg{
     width: 100%;
     position: relative;
     left: -100%;
-    background-color: aqua;
+    background-color: var(--active-icon-color);
 }
 
 .progress-time{
@@ -229,4 +224,11 @@ svg{
     justify-content: space-between;
     font-size: 1.5rem;
     margin-top: 0.5rem;
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .music-player{
+        padding: 4rem;
+    }
 }

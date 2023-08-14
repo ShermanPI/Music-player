@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 
 const dummyMusic = [
-  { id: 'M-1111', albumImg: '../static/img/monarca.jpg', name: 'Progreso', artists: ['Eladio Carrion'], url: '../../static/music/Progreso.mp3', duration: 100000 },
-  { id: 'M-2222', albumImg: '../static/img/3MEN2 KBRN.png', name: 'Coco Chanel', artists: ['Eladio Carrion', 'Bad Bunny'], url: '../../static/music/Coco Chanel.mp3', duration: 190000 },
-  { id: 'M-3333', albumImg: '../static/img/minina.png', name: 'Minina', artists: ['Carree, Spreen'], url: '../../static/music/minina.mp3', duration: 150000 },
-  { id: 'M-4444', albumImg: '../static/img/Sauce Boyz.jpg', name: 'Kemba Walker', artists: ['Eladio Carrion', 'Bad Bunny', 'Shermanius'], url: '../../static/music/Kemba Walker.mp3', duration: 200000 }
+  { id: 'M-1111', albumImg: '../static/img/bohemian.jpg', name: 'Bohemian Rhapsody', artists: ['Queen'], url: '../../static/music/bohemian.mp3', duration: 183000, albumHexColor: '#a83888' },
+  { id: 'M-2222', albumImg: '../static/img/renegade.jpg', name: 'Renegade', artists: ['3rd Prototype', 'Harley Bird', 'Valentina Franco'], url: '../../static/music/renegade.mp3', duration: 227000, albumHexColor: '#cd4f00' },
+  { id: 'M-3333', albumImg: '../static/img/BLANK.jpg', name: 'Blank', artists: ['Disfigure'], url: '../../static/music/blank.mp3', duration: 208000, albumHexColor: '#597e78' },
+  { id: 'M-4444', albumImg: '../static/img/runandhide.jpg', name: 'Run & Hide', artists: ['Zeus X Crona', 'Shiah Maisel'], url: '../../static/music/run&hide.mp3', duration: 161000, albumHexColor: '#a05060' }
 ]
 
 export const usePlayer = ({ initialMusicId }) => {
@@ -24,7 +24,9 @@ export const usePlayer = ({ initialMusicId }) => {
     if (isPlaying) {
       timeIntervalId = setInterval(() => {
         const newSongProgress = songTimeProgress
-        setSongTimeProgress(newSongProgress + 1000)
+        if (newSongProgress <= songDuration) {
+          setSongTimeProgress(newSongProgress + 1000)
+        }
       }, 1000)
     }
 
@@ -32,6 +34,31 @@ export const usePlayer = ({ initialMusicId }) => {
       clearInterval(timeIntervalId)
     }
   }, [isPlaying, songTimeProgress])
+
+  useEffect(() => {
+    const autoReplay = () => {
+      if (isReplaying) {
+        audioRef.current.play()
+        setSongTimeProgress(0)
+      } else {
+        playNextSong()
+      }
+    }
+    audioRef.current.addEventListener('ended', autoReplay)
+
+    return () => {
+      audioRef.current.removeEventListener('ended', autoReplay)
+    }
+  }, [isReplaying])
+
+  useEffect(() => {
+    audioRef.current.volume = 0.2
+  }, [])
+
+  useEffect(() => {
+    const root = document.querySelector(':root')
+    root.style.setProperty('--active-icon-color', dummyMusic[musicId].albumHexColor)
+  }, [musicId])
 
   const playNextSong = () => {
     const newId = (musicId + 1) % maxId
@@ -66,26 +93,6 @@ export const usePlayer = ({ initialMusicId }) => {
   const replayHandler = () => {
     setReplay(!isReplaying)
   }
-
-  useEffect(() => {
-    const autoReplay = () => {
-      if (isReplaying) {
-        audioRef.current.play()
-        setSongTimeProgress(0)
-      } else {
-        playNextSong()
-      }
-    }
-    audioRef.current.addEventListener('ended', autoReplay)
-
-    return () => {
-      audioRef.current.removeEventListener('ended', autoReplay)
-    }
-  }, [isReplaying])
-
-  useEffect(() => {
-    audioRef.current.volume = 0.2
-  }, [])
 
   const volumeHandler = (e) => {
     audioRef.current.volume = (e.target.value / 100)
