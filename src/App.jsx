@@ -1,4 +1,4 @@
-import '../static/App.css'
+import './assets/App.css'
 import { MusicPlayer } from './components/MusicPlayer'
 
 export default function App () {

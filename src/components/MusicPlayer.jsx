@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-closing-tag-location */
 import { useState } from 'react'
-import { icons } from '../../static/svg/icons'
+import { icons } from '../assets/svg/icons'
 import { usePlayer } from '../hooks/usePlayer'
 import { ControlBtn } from './ControlButton'
 

@@ -1,10 +1,18 @@
 import { useState, useRef, useEffect } from 'react'
+import bohemian from '../assets/img/bohemian.jpg'
+import renegade from '../assets/img/renegade.jpg'
+import blank from '../assets/img/BLANK.jpg'
+import runandhide from '../assets/img/runandhide.jpg'
+import bohemianMusic from '../assets/music/bohemian.mp3'
+import renegadeMusic from '../assets/music/renegade.mp3'
+import blankMusic from '../assets/music/blank.mp3'
+import runandhideMusic from '../assets/music/run&hide.mp3'
 
 const dummyMusic = [
-  { id: 'M-1111', albumImg: '../static/img/bohemian.jpg', name: 'Bohemian Rhapsody', artists: ['Queen'], url: '../../static/music/bohemian.mp3', duration: 183000, albumHexColor: '#a83888' },
-  { id: 'M-2222', albumImg: '../static/img/renegade.jpg', name: 'Renegade', artists: ['3rd Prototype', 'Harley Bird', 'Valentina Franco'], url: '../../static/music/renegade.mp3', duration: 227000, albumHexColor: '#cd4f00' },
-  { id: 'M-3333', albumImg: '../static/img/BLANK.jpg', name: 'Blank', artists: ['Disfigure'], url: '../../static/music/blank.mp3', duration: 208000, albumHexColor: '#597e78' },
-  { id: 'M-4444', albumImg: '../static/img/runandhide.jpg', name: 'Run & Hide', artists: ['Zeus X Crona', 'Shiah Maisel'], url: '../../static/music/run&hide.mp3', duration: 161000, albumHexColor: '#a05060' }
+  { id: 'M-1111', albumImg: bohemian, name: 'Bohemian Rhapsody', artists: ['Queen'], url: bohemianMusic, duration: 183000, albumHexColor: '#a83888' },
+  { id: 'M-2222', albumImg: renegade, name: 'Renegade', artists: ['3rd Prototype', 'Harley Bird', 'Valentina Franco'], url: renegadeMusic, duration: 227000, albumHexColor: '#cd4f00' },
+  { id: 'M-3333', albumImg: blank, name: 'Blank', artists: ['Disfigure'], url: blankMusic, duration: 208000, albumHexColor: '#597e78' },
+  { id: 'M-4444', albumImg: runandhide, name: 'Run & Hide', artists: ['Zeus X Crona', 'Shiah Maisel'], url: runandhideMusic, duration: 161000, albumHexColor: '#a05060' }
 ]
 
 export const usePlayer = ({ initialMusicId }) => {
