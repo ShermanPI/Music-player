@@ -22,8 +22,8 @@ export const usePlayer = ({ initialMusicId }) => {
   const [songDuration, setSongDuration] = useState(dummyMusic[musicId].duration)
   const [songTimeProgress, setSongTimeProgress] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
-  const [canPlay, setCanPlay] = useState(false)
   const audioRef = useRef(new window.Audio(dummyMusic[musicId].url))
+  const canPlayRef = useRef(false)
   const maxId = dummyMusic.length
 
   const music = dummyMusic[musicId]
@@ -73,10 +73,11 @@ export const usePlayer = ({ initialMusicId }) => {
 
   // see if the music after changed can be played
   useEffect(() => {
-    setCanPlay(false)
+    canPlayRef.current = false
+    console.log('se ha cambiado el id de la cancion y ahora se ha puesto can play a false')
 
     const playSong = () => {
-      setCanPlay(true)
+      canPlayRef.current = true
       console.log('eoooo, se puede tocar?', true)
       setIsLoading(false)
     }
@@ -92,12 +93,14 @@ export const usePlayer = ({ initialMusicId }) => {
 
   const playSongHandler = () => {
     setIsLoading(true)
-    console.log('is loading the song after play')
+    console.log('the song is loading, you hitted play')
 
-    if (canPlay) {
+    if (canPlayRef) {
+      console.log('the song loaded and can play')
       setIsLoading(false)
       audioRef.current.play()
       setIsPlaying(true)
+      console.log('now is playing')
     }
 
     if (isPlaying) {
@@ -107,23 +110,37 @@ export const usePlayer = ({ initialMusicId }) => {
   }
 
   const playNextSong = () => {
+    setIsLoading(true)
+
+    console.log('the next song is loading')
     const newId = (musicId + 1) % maxId
     audioRef.current.src = dummyMusic[newId].url
-    audioRef.current.play()
-    setIsPlaying(true)
     setMusicId(newId)
     setSongDuration(dummyMusic[newId].duration)
-    setSongTimeProgress(0)
+
+    if (canPlayRef) {
+      audioRef.current.play()
+      setSongTimeProgress(0)
+      setIsPlaying(true)
+      console.log('now is playing the next song')
+    }
   }
 
   const playPreviousSong = () => {
+    setIsLoading(true)
+    console.log('the previous song is loading')
+
     const newId = (musicId - 1 + maxId) % maxId
     audioRef.current.src = dummyMusic[newId].url
-    audioRef.current.play()
-    setIsPlaying(true)
     setMusicId(newId)
     setSongDuration(dummyMusic[newId].duration)
-    setSongTimeProgress(0)
+
+    if (canPlayRef) {
+      audioRef.current.play()
+      setSongTimeProgress(0)
+      setIsPlaying(true)
+      console.log('now is playing the previous song')
+    }
   }
 
   const replayHandler = () => {
