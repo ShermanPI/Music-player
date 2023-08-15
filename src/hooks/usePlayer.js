@@ -21,6 +21,7 @@ export const usePlayer = ({ initialMusicId }) => {
   const [isReplaying, setReplay] = useState(false)
   const [songDuration, setSongDuration] = useState(dummyMusic[musicId].duration)
   const [songTimeProgress, setSongTimeProgress] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
   const audioRef = useRef(new window.Audio(dummyMusic[musicId].url))
   const maxId = dummyMusic.length
 
@@ -112,6 +113,7 @@ export const usePlayer = ({ initialMusicId }) => {
     isReplaying,
     songDuration,
     songTimeProgress,
+    isLoading,
     volumeHandler,
     playNextSong,
     playPreviousSong,

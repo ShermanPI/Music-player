@@ -11,7 +11,7 @@ function millisToMinutesAndSeconds (millis) {
 }
 
 export const MusicPlayer = () => {
-  const { music, isPlaying, isReplaying, songDuration, songTimeProgress, volumeHandler, playPreviousSong, playNextSong, playSongHandler, replayHandler } = usePlayer({ initialMusicId: 0 })
+  const { music, isPlaying, isReplaying, songDuration, songTimeProgress, isLoading, volumeHandler, playPreviousSong, playNextSong, playSongHandler, replayHandler } = usePlayer({ initialMusicId: 0 })
   const [isPanelVolumeActive, setVolumePanelActive] = useState(false)
   const artists = music.artists
 
@@ -51,6 +51,9 @@ export const MusicPlayer = () => {
       </section>
 
       <section className='control-panel'>
+        <div className={`loading-container ${isLoading ? 'loading' : ''}`}>
+          <div />
+        </div>
 
         <div className='volume-container'>
           <div className={`panel-volume ${isPanelVolumeActive ? '' : 'inactive'}`}>
