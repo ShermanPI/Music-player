@@ -65,12 +65,16 @@ export const usePlayer = ({ initialMusicId }) => {
     audioRef.current.volume = 0.2
   }, [])
 
+  // change application color when song changes
   useEffect(() => {
     const root = document.querySelector(':root')
     root.style.setProperty('--active-icon-color', dummyMusic[musicId].albumHexColor)
   }, [musicId])
 
+  // see if the music after changed can be played
   useEffect(() => {
+    setCanPlay(false)
+
     const playSong = () => {
       setCanPlay(true)
       console.log('eoooo, se puede tocar?', true)
@@ -88,6 +92,7 @@ export const usePlayer = ({ initialMusicId }) => {
 
   const playSongHandler = () => {
     setIsLoading(true)
+    console.log('is loading the song after play')
 
     if (canPlay) {
       setIsLoading(false)
