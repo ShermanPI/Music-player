@@ -22,6 +22,7 @@ export const usePlayer = ({ initialMusicId }) => {
   const [songDuration, setSongDuration] = useState(dummyMusic[musicId].duration)
   const [songTimeProgress, setSongTimeProgress] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
+  const [canPlay, setCanPlay] = useState(false)
   const audioRef = useRef(new window.Audio(dummyMusic[musicId].url))
   const maxId = dummyMusic.length
 
@@ -69,6 +70,37 @@ export const usePlayer = ({ initialMusicId }) => {
     root.style.setProperty('--active-icon-color', dummyMusic[musicId].albumHexColor)
   }, [musicId])
 
+  useEffect(() => {
+    const playSong = () => {
+      setCanPlay(true)
+      console.log('eoooo, se puede tocar?', true)
+      setIsLoading(false)
+    }
+
+    audioRef.current.addEventListener('canplay', playSong)
+    console.log('se ha agrehadp e listener')
+
+    return () => {
+      audioRef.current.removeEventListener('canplay', playSong)
+      console.log('se ha quitado el listener')
+    }
+  }, [musicId])
+
+  const playSongHandler = () => {
+    setIsLoading(true)
+
+    if (canPlay) {
+      setIsLoading(false)
+      audioRef.current.play()
+      setIsPlaying(true)
+    }
+
+    if (isPlaying) {
+      audioRef.current.pause()
+      setIsPlaying(false)
+    }
+  }
+
   const playNextSong = () => {
     const newId = (musicId + 1) % maxId
     audioRef.current.src = dummyMusic[newId].url
@@ -87,16 +119,6 @@ export const usePlayer = ({ initialMusicId }) => {
     setMusicId(newId)
     setSongDuration(dummyMusic[newId].duration)
     setSongTimeProgress(0)
-  }
-
-  const playSongHandler = () => {
-    if (!isPlaying) {
-      audioRef.current.play()
-      setIsPlaying(true)
-    } else {
-      audioRef.current.pause()
-      setIsPlaying(false)
-    }
   }
 
   const replayHandler = () => {
