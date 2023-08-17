@@ -273,6 +273,8 @@ svg{
 /* input range */
 
 .events-test-playground{
+    top: 0;
+    z-index: 999999;
     height: 2rem;
     width: 50%;
     height: 30%;

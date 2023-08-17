@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { icons } from '../assets/svg/icons'
 import { usePlayer } from '../hooks/usePlayer'
 import { ControlBtn } from './ControlButton'
+import { InputRange } from './InputRange'
 
 function millisToMinutesAndSeconds (millis) {
   const minutes = Math.floor(millis / 60000)
@@ -40,6 +41,7 @@ export const MusicPlayer = () => {
         : null}
 
       <section className='progress-section'>
+        <InputRange />
         <div className='progress-bar'>
           <div className='progress-line' style={{ left: `-${100 - (songTimeProgress / songDuration * 100)}%` }} />
         </div>
