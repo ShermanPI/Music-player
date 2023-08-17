@@ -75,11 +75,9 @@ export const usePlayer = ({ initialMusicId }) => {
   // see if the music after changed can be played
   useEffect(() => {
     canPlayRef.current = false
-    console.log('se ha cambiado el id de la cancion y ahora se ha puesto can play a false')
 
     const playSong = () => {
       canPlayRef.current = true
-      console.log('🎉🎉🎉 se puede tocar', canPlayRef.current)
 
       if (songChangedRef.current) {
         playSongHandler()
@@ -94,7 +92,6 @@ export const usePlayer = ({ initialMusicId }) => {
 
     return () => {
       audioRef.current.removeEventListener('canplay', playSong)
-      console.log('se ha quitado el event listener')
     }
   }, [musicId])
 
