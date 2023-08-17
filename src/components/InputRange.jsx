@@ -1,25 +1,21 @@
 import { useRef, useState } from 'react'
 
 export function InputRange ({ initialValue }) {
-  const movibleItemRef = useRef()
+  const progressBarContainerRef = useRef()
   const isDragActiveRef = useRef(false)
-  const [squarePosition, setSquarePosition] = useState()
+  const [progressLinePosition, setProgressLinePosition] = useState({ x: initialValue })
 
-  const handleMouseDown = () => {
+  const handleMouseDown = (e) => {
     isDragActiveRef.current = false
+
+    const barBoundaries = progressBarContainerRef.current.getBoundingClientRect()
+    const newPosition = 100 - (e.clientX / (barBoundaries.width) * 100) // (e.clientX - barBoundaries.x)
+    console.log('-', newPosition)
+    setProgressLinePosition({ x: newPosition })
   }
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = () => {
     isDragActiveRef.current = true
-    const rect = e.target.getBoundingClientRect()
-    const itemRect = movibleItemRef.current.getBoundingClientRect()
-    console.log(itemRect)
-
-    const newItemX = ((e.clientX - rect.left) - (itemRect.width / 2))
-    const newItemY = ((e.clientY - rect.top) - (itemRect.height / 2))
-
-    movibleItemRef.current.style.transform = `translate(${newItemX}px, ${newItemY}px)`
-    console.log('se ha levantado el click', movibleItemRef.current)
   }
 
   const mouseUpHandler = (e) => {
@@ -27,8 +23,8 @@ export function InputRange ({ initialValue }) {
   }
 
   return (
-    <div className='events-test-playground' onMouseDown={handleMouseDown} onMouseUp={mouseUpHandler} onMouseMove={handleMouseMove}>
-      <div ref={movibleItemRef} className='movible-item' />
+    <div ref={progressBarContainerRef} className='events-test-playground' onMouseDown={handleMouseDown} onMouseUp={mouseUpHandler} onMouseMove={handleMouseMove}>
+      <div style={{ left: `-${progressLinePosition.x}%` }} className='movible-item' />
     </div>
   )
 }
