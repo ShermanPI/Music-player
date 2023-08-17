@@ -269,3 +269,21 @@ svg{
 .active-loading{
     visibility: visible;
 }
+
+/* input range */
+
+.events-test-playground{
+    height: 2rem;
+    width: 50%;
+    height: 30%;
+    background-color: yellow;
+    margin-inline: auto;
+    position: fixed;
+    cursor: pointer;
+  }
+  
+  .movible-item{
+    background-color: red;
+    width: 5rem;
+    height: 5rem;
+  }
