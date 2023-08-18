@@ -20,7 +20,7 @@ body{
     color: var(--font-color);
     background: #121212;
     background: linear-gradient(180deg, var(--active-icon-color) 0%, #121212 60%, #121212 100%);
-
+    user-select: none;
 }
 
 svg{

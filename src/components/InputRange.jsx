@@ -7,15 +7,24 @@ export function InputRange ({ initialValue }) {
 
   const renderNewRange = (event) => {
     const barBoundaries = progressBarContainerRef.current.getBoundingClientRect()
+    const maxRange = barBoundaries.left + barBoundaries.width
     let newPosition = 0
+    let userXposition = 0
 
     // Check if Mouse events exist on users' device
     if (event.clientX) {
       newPosition = (event.clientX - barBoundaries.left) / barBoundaries.width * 100
+      userXposition = event.clientX
     } else {
       newPosition = (event.touches[0].clientX - barBoundaries.left) / barBoundaries.width * 100
+      userXposition = event.touches[0].clientX
     }
-    setProgressLinePosition({ x: newPosition })
+
+    if (userXposition < maxRange && userXposition > barBoundaries.left) {
+      setProgressLinePosition({ x: newPosition })
+    } else {
+      console.log('se paso la vaina')
+    }
   }
 
   const handlePressingDown = (e) => {
@@ -30,24 +39,23 @@ export function InputRange ({ initialValue }) {
 
   useEffect(() => {
     const stopDrag = () => {
-      console.log('drag stopped')
       isDraggingRef.current = false
     }
 
     window.addEventListener('mouseup', stopDrag)
+    window.addEventListener('touchend', stopDrag)
+    window.addEventListener('mousemove', handleMovement)
 
-    // return (
-    //   window.removeEventListener('mouseup', stopDrag)
-    // )
+    return () => {
+      window.removeEventListener('mouseup', stopDrag)
+      window.removeEventListener('touchend', stopDrag)
+      window.removeEventListener('mousemove', handleMovement)
+    }
   }, [])
 
-  // const mouseUpHandler = () => {
-
-  // }
-
   return (
-    // onMouseUp={mouseUpHandler}
-    <div ref={progressBarContainerRef} className='events-test-playground' onMouseDown={handlePressingDown} onTouchStart={handlePressingDown} onMouseMove={handleMovement} onTouchMove={handleMovement}>
+    // onMouseUp={mouseUpHandler} onMouseMove={handleMovement}
+    <div ref={progressBarContainerRef} className='events-test-playground' onMouseDown={handlePressingDown} onTouchStart={handlePressingDown} onTouchMove={handleMovement}>
       <div style={{ right: `${100 - progressLinePosition.x}%` }} className='movible-item' />
     </div>
   )
