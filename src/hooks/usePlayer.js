@@ -9,24 +9,23 @@ import blankMusic from '../assets/music/blank.mp3'
 import runandhideMusic from '../assets/music/run&hide.mp3'
 
 const dummyMusic = [
-  { id: 'M-1111', albumImg: bohemian, name: 'Bohemian Rhapsody', artists: ['Queen'], url: bohemianMusic, duration: 183000, albumHexColor: '#a83888' },
-  { id: 'M-2222', albumImg: renegade, name: 'Renegade', artists: ['3rd Prototype', 'Harley Bird', 'Valentina Franco'], url: renegadeMusic, duration: 227000, albumHexColor: '#cd4f00' },
-  { id: 'M-3333', albumImg: blank, name: 'Blank', artists: ['Disfigure'], url: blankMusic, duration: 208000, albumHexColor: '#597e78' },
-  { id: 'M-4444', albumImg: runandhide, name: 'Run & Hide', artists: ['Zeus X Crona', 'Shiah Maisel'], url: runandhideMusic, duration: 161000, albumHexColor: '#a05060' }
+  { id: 'M-1111', albumImg: bohemian, name: 'Bohemian Rhapsody', artists: ['Queen'], url: bohemianMusic, albumHexColor: '#a83888' },
+  { id: 'M-2222', albumImg: renegade, name: 'Renegade', artists: ['3rd Prototype', 'Harley Bird', 'Valentina Franco'], url: renegadeMusic, albumHexColor: '#cd4f00' },
+  { id: 'M-3333', albumImg: blank, name: 'Blank', artists: ['Disfigure'], url: blankMusic, albumHexColor: '#597e78' },
+  { id: 'M-4444', albumImg: runandhide, name: 'Run & Hide', artists: ['Zeus X Crona', 'Shiah Maisel'], url: runandhideMusic, albumHexColor: '#a05060' }
 ]
 
 export const usePlayer = ({ initialMusicId }) => {
   const [musicId, setMusicId] = useState(initialMusicId)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isReplaying, setReplay] = useState(false)
-  const [songDuration, setSongDuration] = useState(dummyMusic[musicId].duration)
+  const [songDuration, setSongDuration] = useState('--:--')
   const [songTimeProgress, setSongTimeProgress] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const audioRef = useRef(new window.Audio(dummyMusic[musicId].url))
   const canPlayRef = useRef(false)
   const songChangedRef = useRef(false)
   const maxId = dummyMusic.length
-
   const music = dummyMusic[musicId]
 
   useEffect(() => {
@@ -47,6 +46,7 @@ export const usePlayer = ({ initialMusicId }) => {
   }, [isPlaying, songTimeProgress])
 
   useEffect(() => {
+    // auto replaying the song if isReplaying is active
     const autoReplay = () => {
       if (isReplaying) {
         audioRef.current.play()
@@ -63,6 +63,7 @@ export const usePlayer = ({ initialMusicId }) => {
   }, [isReplaying])
 
   useEffect(() => {
+    audioRef.current.preload = 'metadata'
     audioRef.current.volume = 0.2
   }, [])
 
@@ -95,6 +96,21 @@ export const usePlayer = ({ initialMusicId }) => {
     }
   }, [musicId])
 
+  useEffect(() => {
+    const setNewSongDuration = () => {
+      const newSongDuration = audioRef.current.duration * 1000
+      console.log('🔥🔥🔥🔥🔥🔥', newSongDuration)
+      setSongDuration(newSongDuration)
+    }
+
+    // set the song duration after metadata load
+    audioRef.current.addEventListener('loadedmetadata', setNewSongDuration)
+
+    return () => {
+      audioRef.current.removeEventListener('loadedmetadata', setNewSongDuration)
+    }
+  }, [musicId])
+
   const playSongHandler = () => {
     setIsLoading(true)
 
@@ -118,7 +134,7 @@ export const usePlayer = ({ initialMusicId }) => {
     const newId = (musicId + 1) % maxId
     audioRef.current.src = dummyMusic[newId].url
     setMusicId(newId)
-    setSongDuration(dummyMusic[newId].duration)
+    setSongDuration('--:--')
     setSongTimeProgress(0)
   }
 
@@ -130,7 +146,7 @@ export const usePlayer = ({ initialMusicId }) => {
     const newId = (musicId - 1 + maxId) % maxId
     audioRef.current.src = dummyMusic[newId].url
     setMusicId(newId)
-    setSongDuration(dummyMusic[newId].duration)
+    setSongDuration('--:--')
     setSongTimeProgress(0)
   }
 
