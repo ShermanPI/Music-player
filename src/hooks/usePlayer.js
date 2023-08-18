@@ -19,7 +19,7 @@ export const usePlayer = ({ initialMusicId }) => {
   const [musicId, setMusicId] = useState(initialMusicId)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isReplaying, setReplay] = useState(false)
-  const [songDuration, setSongDuration] = useState('--:--')
+  const [songDuration, setSongDuration] = useState(0)
   const [songTimeProgress, setSongTimeProgress] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const audioRef = useRef(new window.Audio(dummyMusic[musicId].url))
@@ -29,21 +29,19 @@ export const usePlayer = ({ initialMusicId }) => {
   const music = dummyMusic[musicId]
 
   useEffect(() => {
-    let timeIntervalId
-
-    if (isPlaying) {
-      timeIntervalId = setInterval(() => {
-        const newSongProgress = songTimeProgress
-        if (newSongProgress <= songDuration) {
-          setSongTimeProgress(newSongProgress + 1000)
-        }
-      }, 1000)
+    // song milliseconds progress for progress bar
+    const updateSongProgress = () => {
+      const newProgress = audioRef.current.currentTime * 1000
+      setSongTimeProgress(newProgress)
     }
+
+    audioRef.current.addEventListener('timeupdate', updateSongProgress)
 
     return () => {
-      clearInterval(timeIntervalId)
+      audioRef.current.removeEventListener('timeupdate', updateSongProgress)
+      // clearInterval(timeIntervalId)
     }
-  }, [isPlaying, songTimeProgress])
+  }, [musicId])
 
   useEffect(() => {
     // auto replaying the song if isReplaying is active
@@ -97,9 +95,9 @@ export const usePlayer = ({ initialMusicId }) => {
   }, [musicId])
 
   useEffect(() => {
+    // this is used to update the music duration in the screen
     const setNewSongDuration = () => {
       const newSongDuration = audioRef.current.duration * 1000
-      console.log('🔥🔥🔥🔥🔥🔥', newSongDuration)
       setSongDuration(newSongDuration)
     }
 
@@ -134,7 +132,7 @@ export const usePlayer = ({ initialMusicId }) => {
     const newId = (musicId + 1) % maxId
     audioRef.current.src = dummyMusic[newId].url
     setMusicId(newId)
-    setSongDuration('--:--')
+    setSongDuration(undefined)
     setSongTimeProgress(0)
   }
 
@@ -146,7 +144,7 @@ export const usePlayer = ({ initialMusicId }) => {
     const newId = (musicId - 1 + maxId) % maxId
     audioRef.current.src = dummyMusic[newId].url
     setMusicId(newId)
-    setSongDuration('--:--')
+    setSongDuration(undefined)
     setSongTimeProgress(0)
   }
 
