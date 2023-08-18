@@ -3,7 +3,11 @@ import { useEffect, useRef, useState } from 'react'
 export function InputRange ({ initialValue }) {
   const progressBarContainerRef = useRef()
   const isDraggingRef = useRef(false)
-  const [progressLinePosition, setProgressLinePosition] = useState({ x: (initialValue) })
+  const [rangePosition, setRangePosition] = useState({ x: (initialValue) })
+
+  useEffect(() => {
+    setRangePosition({ x: initialValue })
+  }, [initialValue])
 
   const renderNewRange = (event) => {
     const barBoundaries = progressBarContainerRef.current.getBoundingClientRect()
@@ -21,9 +25,7 @@ export function InputRange ({ initialValue }) {
     }
 
     if (userXposition < maxRange && userXposition > barBoundaries.left) {
-      setProgressLinePosition({ x: newPosition })
-    } else {
-      console.log('se paso la vaina')
+      setRangePosition({ x: newPosition })
     }
   }
 
@@ -55,8 +57,8 @@ export function InputRange ({ initialValue }) {
 
   return (
     // onMouseUp={mouseUpHandler} onMouseMove={handleMovement}
-    <div ref={progressBarContainerRef} className='events-test-playground' onMouseDown={handlePressingDown} onTouchStart={handlePressingDown} onTouchMove={handleMovement}>
-      <div style={{ right: `${100 - progressLinePosition.x}%` }} className='movible-item' />
+    <div ref={progressBarContainerRef} className='progress-bar' onMouseDown={handlePressingDown} onTouchStart={handlePressingDown} onTouchMove={handleMovement}>
+      <div style={{ right: `${100 - rangePosition.x}%` }} className='progress-line' />
     </div>
   )
 }

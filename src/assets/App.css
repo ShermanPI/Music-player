@@ -50,8 +50,6 @@ svg{
     padding: calc(2vw + 3rem);
 }
 
-
-
 .control-panel{
     display: flex;
     justify-content: space-between;
@@ -203,21 +201,6 @@ svg{
     fill: var(--active-icon-color);
 }
 
-.progress-bar{
-    background-color: #4d4d4d;
-    height: 0.5rem;
-    border-radius: 0.5rem;
-    overflow: hidden;
-}
-
-.progress-line{
-    height: 2rem;
-    width: 100%;
-    position: relative;
-    left: -100%;
-    background-color: var(--active-icon-color);
-}
-
 .progress-time{
     display: flex;
     width: 100%;
@@ -272,23 +255,19 @@ svg{
 
 /* input range */
 
-.events-test-playground{
-    top: 0;
-    z-index: 999999;
-    height: 2rem;
-    width: 60%;
-    height: 30%;
-    background-color: yellow;
-    margin-inline: auto;
-    position: fixed;
-    cursor: pointer;
+.progress-bar{
+    background-color: #4d4d4d;
+    height: 0.5rem;
+    border-radius: 0.5rem;
     overflow: hidden;
-  }
-  
-  .movible-item{
+    position: relative;
+}
+
+
+.progress-line{
+    height: 2rem;
+    width: 100%;
     position: absolute;
     right: 100%;
-    background-color: red;
-    width: 100%;
-    height: 100%;
-  }
+    background-color: var(--active-icon-color);
+}

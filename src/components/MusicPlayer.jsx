@@ -41,10 +41,10 @@ export const MusicPlayer = () => {
         : null}
 
       <section className='progress-section'>
-        <InputRange initialValue={20} />
-        <div className='progress-bar'>
+        <InputRange initialValue={songTimeProgress / songDuration * 100} />
+        {/* <div className='progress-bar'>
           <div className='progress-line' style={{ left: `-${100 - (songTimeProgress / songDuration * 100)}%` }} />
-        </div>
+        </div> */}
 
         <div className='progress-time'>
           <p className='actual-time'>{millisToMinutesAndSeconds(songTimeProgress)}</p>
