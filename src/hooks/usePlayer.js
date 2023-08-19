@@ -61,7 +61,7 @@ export const usePlayer = ({ initialMusicId }) => {
   }, [isReplaying])
 
   useEffect(() => {
-    audioRef.current.preload = 'metadata'
+    audioRef.current.preload = 'auto'
     audioRef.current.volume = 0.2
   }, [])
 
@@ -87,10 +87,10 @@ export const usePlayer = ({ initialMusicId }) => {
       }
     }
 
-    audioRef.current.addEventListener('canplay', playSong)
+    audioRef.current.addEventListener('canplaythrough', playSong)
 
     return () => {
-      audioRef.current.removeEventListener('canplay', playSong)
+      audioRef.current.removeEventListener('canplaythrough', playSong)
     }
   }, [musicId])
 
