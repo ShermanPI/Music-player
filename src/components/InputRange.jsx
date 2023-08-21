@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function InputRange ({ initialValue }) {
+export function InputRange ({ initialValue, inputFunction }) {
   const progressBarContainerRef = useRef()
   const isDraggingRef = useRef(false)
+  const currentValueRef = useRef(0)
   const [rangePosition, setRangePosition] = useState({ x: (initialValue) })
 
   useEffect(() => {
+    currentValueRef.current = 0
     setRangePosition({ x: initialValue })
   }, [initialValue])
 
@@ -25,6 +27,7 @@ export function InputRange ({ initialValue }) {
     }
 
     if (userXposition < maxRange && userXposition > barBoundaries.left) {
+      currentValueRef.current = newPosition
       setRangePosition({ x: newPosition })
     }
   }
@@ -41,6 +44,7 @@ export function InputRange ({ initialValue }) {
 
   useEffect(() => {
     const stopDrag = () => {
+      inputFunction(currentValueRef.current)
       isDraggingRef.current = false
     }
 

@@ -16,7 +16,7 @@ function millisToMinutesAndSeconds (millis) {
 }
 
 export const MusicPlayer = () => {
-  const { music, isPlaying, isReplaying, songDuration, songTimeProgress, isLoading, volumeHandler, playPreviousSong, playNextSong, playSongHandler, replayHandler } = usePlayer({ initialMusicId: 0 })
+  const { music, isPlaying, isReplaying, songDuration, songTimeProgress, isLoading, timeHandler, volumeHandler, playPreviousSong, playNextSong, playSongHandler, replayHandler } = usePlayer({ initialMusicId: 0 })
   const [isPanelVolumeActive, setVolumePanelActive] = useState(false)
   const artists = music.artists
 
@@ -45,7 +45,7 @@ export const MusicPlayer = () => {
         : null}
 
       <section className='progress-section'>
-        <InputRange initialValue={songTimeProgress / songDuration * 100} />
+        <InputRange initialValue={songTimeProgress / songDuration * 100} inputFunction={timeHandler} />
         {/* <div className='progress-bar'>
           <div className='progress-line' style={{ left: `-${100 - (songTimeProgress / songDuration * 100)}%` }} />
         </div> */}

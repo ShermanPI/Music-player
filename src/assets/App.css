@@ -261,6 +261,7 @@ svg{
     border-radius: 0.5rem;
     overflow: hidden;
     position: relative;
+    cursor: pointer;
 }
 
 

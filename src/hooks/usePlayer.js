@@ -156,6 +156,11 @@ export const usePlayer = ({ initialMusicId }) => {
     audioRef.current.volume = (e.target.value / 100)
   }
 
+  const timeHandler = (timePorcentage) => {
+    const newTime = audioRef.current.duration * timePorcentage / 100
+    audioRef.current.currentTime = newTime
+  }
+
   return {
     music,
     isPlaying,
@@ -167,6 +172,7 @@ export const usePlayer = ({ initialMusicId }) => {
     playNextSong,
     playPreviousSong,
     playSongHandler,
-    replayHandler
+    replayHandler,
+    timeHandler
   }
 }
