@@ -153,14 +153,14 @@ export const usePlayer = ({ initialMusicId }) => {
     setReplay(!isReplaying)
   }
 
-  const volumeHandler = (e) => {
-    audioRef.current.volume = (e.target.value / 100)
+  const volumeHandler = (volume) => {
+    console.log('🤣🤣🤣', volume / 100, volume)
+    audioRef.current.volume = (volume / 100)
   }
 
   const timeHandler = (timePorcentage) => {
     audioRef.current.muted = true
     const newTime = audioRef.current.duration * timePorcentage / 100
-    console.log('se ha utilizando el time handler', newTime)
     audioRef.current.currentTime = newTime
   }
 

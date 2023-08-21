@@ -191,6 +191,7 @@ svg{
     transform: rotate(-90deg);
     accent-color: var(--active-icon-color);
     background-color: #202020cb;
+    width: 20rem;
 }
 
 .inactive{
@@ -262,6 +263,7 @@ svg{
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    min-width: 4rem;
 }
 
 
