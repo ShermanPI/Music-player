@@ -130,6 +130,7 @@ export const usePlayer = ({ initialMusicId }) => {
     songChangedRef.current = true
 
     const newId = (musicId + 1) % maxId
+    // console.log(musicId, maxId, newId, audioRef.current)
     audioRef.current.src = dummyMusic[newId].url
     setMusicId(newId)
     setSongDuration(undefined)
@@ -157,8 +158,14 @@ export const usePlayer = ({ initialMusicId }) => {
   }
 
   const timeHandler = (timePorcentage) => {
+    audioRef.current.muted = true
     const newTime = audioRef.current.duration * timePorcentage / 100
+    console.log('se ha utilizando el time handler', newTime)
     audioRef.current.currentTime = newTime
+  }
+
+  const unmuteAudio = () => {
+    audioRef.current.muted = false
   }
 
   return {
@@ -168,6 +175,7 @@ export const usePlayer = ({ initialMusicId }) => {
     songDuration,
     songTimeProgress,
     isLoading,
+    unmuteAudio,
     volumeHandler,
     playNextSong,
     playPreviousSong,

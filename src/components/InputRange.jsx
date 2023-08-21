@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function InputRange ({ initialValue, inputFunction }) {
+export function InputRange ({ initialValue, inputFunction, endDragFunction }) {
   const progressBarContainerRef = useRef()
   const isDraggingRef = useRef(false)
   const [rangePosition, setRangePosition] = useState({ x: (initialValue) })
@@ -42,6 +42,9 @@ export function InputRange ({ initialValue, inputFunction }) {
 
   useEffect(() => {
     const stopDrag = () => {
+      if (endDragFunction) {
+        endDragFunction()
+      }
       isDraggingRef.current = false
     }
 
