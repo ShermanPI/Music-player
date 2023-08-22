@@ -42,9 +42,7 @@ export function InputRange ({ initialValue, inputFunction, endDragFunction, isVe
 
   useEffect(() => {
     const stopDrag = () => {
-      if (endDragFunction) {
-        endDragFunction()
-      }
+      if (endDragFunction) endDragFunction()
       isDraggingRef.current = false
     }
 
@@ -60,9 +58,11 @@ export function InputRange ({ initialValue, inputFunction, endDragFunction, isVe
   }, [])
 
   return (
-    // onMouseUp={mouseUpHandler} onMouseMove={handleMovement}
-    <div ref={progressBarContainerRef} className='progress-bar' onMouseDown={handlePressingDown} onTouchStart={handlePressingDown} onTouchMove={handleMovement}>
-      <div style={{ right: `${100 - rangePosition}%` }} className='progress-line' />
+    <div className='progress-bar-container'>
+      <div ref={progressBarContainerRef} className='progress-bar' onMouseDown={handlePressingDown} onTouchStart={handlePressingDown} onTouchMove={handleMovement}>
+        <div style={{ right: `${100 - rangePosition}%` }} className='progress-line' />
+      </div>
+      <div style={{ right: `calc(${100 - rangePosition}% - 0.75rem)` }} className='progress-bar-circle' />
     </div>
   )
 }

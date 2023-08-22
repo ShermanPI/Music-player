@@ -127,7 +127,7 @@ svg{
 }
 
 .rotate {
-	animation: rotate-center 5s linear infinite;
+	animation: rotate-center 150s linear infinite;
 }
 
 .control-btn{
@@ -183,14 +183,14 @@ svg{
 .volume-panel {
     position: absolute;
     top: 0.2rem;
-    left: calc(50% - 1rem);
-    padding: 0.8rem 1.8rem;
+    left: calc(45% - 1.5rem);
+    padding: 1.4rem 1.6rem;
     border-radius: 3rem;
     transform-origin: 0 0;
     transform: rotate(-90deg);
     accent-color: var(--active-icon-color);
     background-color: #202020cb;
-    width: 12rem;
+    width: 15rem;
 }
 
 .inactive{
@@ -254,6 +254,14 @@ svg{
 }
 
 /* input range */
+.progress-bar-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+}
+
 .progress-bar{
     background-color: #4d4d4d;
     height: 0.5rem;
@@ -265,11 +273,24 @@ svg{
 }
 
 .progress-line{
-    height: 2rem;
+    height: 100%;
     width: 100%;
     position: absolute;
     right: 100%;
     background-color: var(--active-icon-color);
+}
+
+.progress-bar-circle{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 100%;
+    background-color: white;
+    position: absolute;
+    right: 100%;
+    cursor: pointer;
+    pointer-events: none;
+    touch-action: none;
+    box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
 }
 
 .progress-section{
