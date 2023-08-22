@@ -180,12 +180,11 @@ svg{
     width: 100%;
 }
 
-.panel-volume {
+.volume-panel {
     position: absolute;
     top: 0.2rem;
-    left: calc(40% - 1.5rem);
-    padding: 0.6rem 1.8rem;
-    padding-top: 0.7rem;
+    left: calc(50% - 1rem);
+    padding: 0.8rem 1.8rem;
     border-radius: 3rem;
     transform-origin: 0 0;
     transform: rotate(-90deg);
@@ -271,4 +270,10 @@ svg{
     position: absolute;
     right: 100%;
     background-color: var(--active-icon-color);
+}
+
+.progress-section{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
 }

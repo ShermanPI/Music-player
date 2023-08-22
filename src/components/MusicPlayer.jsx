@@ -59,7 +59,7 @@ export const MusicPlayer = () => {
         </div>
 
         <div className='volume-container'>
-          <div className={`panel-volume ${isPanelVolumeActive ? '' : 'inactive'}`}>
+          <div className={`volume-panel ${isPanelVolumeActive ? '' : 'inactive'}`}>
             <InputRange initialValue={50} inputFunction={volumeHandler} isVertical />
           </div>
           <button onClick={handleVolumeClick} className='control-btn volume-btn'>

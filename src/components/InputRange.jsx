@@ -19,12 +19,12 @@ export function InputRange ({ initialValue, inputFunction, endDragFunction, isVe
         ? 100 - (event.clientY - barBoundaries.top) / barBoundaries.height * 100
         : (event.clientX - barBoundaries.left) / barBoundaries.width * 100
     } else {
-      newPosition = (event.touches[0].clientX - barBoundaries.left) / barBoundaries.width * 100
-      // userPosition = event.touches[0].clientX
+      newPosition = isVertical
+        ? 100 - (event.touches[0].clientY - barBoundaries.top) / barBoundaries.height * 100
+        : (event.touches[0].clientX - barBoundaries.left) / barBoundaries.width * 100
     }
 
     if (newPosition >= 0 && newPosition <= 100) {
-      console.log(newPosition, '%')
       inputFunction(newPosition)
       setRangePosition(newPosition)
     }
