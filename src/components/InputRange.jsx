@@ -1,32 +1,32 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function InputRange ({ initialValue, inputFunction, endDragFunction }) {
+export function InputRange ({ initialValue, inputFunction, endDragFunction, isVertical = false }) {
   const progressBarContainerRef = useRef()
   const isDraggingRef = useRef(false)
-  const [rangePosition, setRangePosition] = useState({ x: (initialValue) })
+  const [rangePosition, setRangePosition] = useState(initialValue)
 
   useEffect(() => {
-    setRangePosition({ x: initialValue })
+    setRangePosition(initialValue)
   }, [initialValue])
 
   const renderNewRange = (event) => {
     const barBoundaries = progressBarContainerRef.current.getBoundingClientRect()
-    const maxRange = barBoundaries.left + barBoundaries.width
     let newPosition = 0
-    let userXposition = 0
 
     // Check if Mouse events exist on users' device
     if (event.clientX) {
-      newPosition = (event.clientX - barBoundaries.left) / barBoundaries.width * 100
-      userXposition = event.clientX
+      newPosition = isVertical
+        ? 100 - (event.clientY - barBoundaries.top) / barBoundaries.height * 100
+        : (event.clientX - barBoundaries.left) / barBoundaries.width * 100
     } else {
       newPosition = (event.touches[0].clientX - barBoundaries.left) / barBoundaries.width * 100
-      userXposition = event.touches[0].clientX
+      // userPosition = event.touches[0].clientX
     }
 
-    if (userXposition < maxRange && userXposition > barBoundaries.left) {
+    if (newPosition >= 0 && newPosition <= 100) {
+      console.log(newPosition, '%')
       inputFunction(newPosition)
-      setRangePosition({ x: newPosition })
+      setRangePosition(newPosition)
     }
   }
 
@@ -62,7 +62,7 @@ export function InputRange ({ initialValue, inputFunction, endDragFunction }) {
   return (
     // onMouseUp={mouseUpHandler} onMouseMove={handleMovement}
     <div ref={progressBarContainerRef} className='progress-bar' onMouseDown={handlePressingDown} onTouchStart={handlePressingDown} onTouchMove={handleMovement}>
-      <div style={{ right: `${100 - rangePosition.x}%` }} className='progress-line' />
+      <div style={{ right: `${100 - rangePosition}%` }} className='progress-line' />
     </div>
   )
 }

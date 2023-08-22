@@ -154,7 +154,6 @@ export const usePlayer = ({ initialMusicId }) => {
   }
 
   const volumeHandler = (volume) => {
-    console.log('🤣🤣🤣', volume / 100, volume)
     audioRef.current.volume = (volume / 100)
   }
 

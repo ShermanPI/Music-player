@@ -191,7 +191,7 @@ svg{
     transform: rotate(-90deg);
     accent-color: var(--active-icon-color);
     background-color: #202020cb;
-    width: 20rem;
+    width: 12rem;
 }
 
 .inactive{
@@ -255,7 +255,6 @@ svg{
 }
 
 /* input range */
-
 .progress-bar{
     background-color: #4d4d4d;
     height: 0.5rem;
@@ -265,7 +264,6 @@ svg{
     cursor: pointer;
     min-width: 4rem;
 }
-
 
 .progress-line{
     height: 2rem;
