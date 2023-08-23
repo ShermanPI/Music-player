@@ -286,7 +286,7 @@ svg{
     border-radius: 100%;
     background-color: white;
     position: absolute;
-    right: 100%;
+    right: calc(100% - 0.75rem);
     cursor: pointer;
     pointer-events: none;
     touch-action: none;
@@ -297,4 +297,10 @@ svg{
     display: flex;
     gap: 1rem;
     flex-direction: column;
+}
+
+
+.eoo{
+    background-color: red;
+    cursor: pointer;
 }
