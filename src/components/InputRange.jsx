@@ -6,7 +6,7 @@ export function InputRange ({ initialValue, inputFunction, endDragFunction, isVe
   const [rangePosition, setRangePosition] = useState(initialValue)
 
   useEffect(() => {
-    if (!isDraggingRef) setRangePosition(initialValue)
+    setRangePosition(initialValue)
   }, [initialValue])
 
   const renderNewRange = (event) => {

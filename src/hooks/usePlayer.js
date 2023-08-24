@@ -39,7 +39,6 @@ export const usePlayer = ({ initialMusicId }) => {
 
     return () => {
       audioRef.current.removeEventListener('timeupdate', updateSongProgress)
-      // clearInterval(timeIntervalId)
     }
   }, [musicId])
 
@@ -58,7 +57,7 @@ export const usePlayer = ({ initialMusicId }) => {
     return () => {
       audioRef.current.removeEventListener('ended', autoReplay)
     }
-  }, [isReplaying])
+  }, [isReplaying, musicId])
 
   useEffect(() => {
     audioRef.current.preload = 'auto'
@@ -127,12 +126,10 @@ export const usePlayer = ({ initialMusicId }) => {
   const playNextSong = () => {
     setIsLoading(true)
     setIsPlaying(false)
-    songChangedRef.current = true
-
     const newId = (musicId + 1) % maxId
-    // console.log(musicId, maxId, newId, audioRef.current)
-    audioRef.current.src = dummyMusic[newId].url
     setMusicId(newId)
+    songChangedRef.current = true
+    audioRef.current.src = dummyMusic[newId].url
     setSongDuration(undefined)
     setSongTimeProgress(0)
   }
