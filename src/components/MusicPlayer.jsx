@@ -33,7 +33,8 @@ export const MusicPlayer = () => {
       </section>
       {music
         ? <section className='music-container'>
-          <div className={`album-cover ${isPlaying ? 'rotate' : ''}`}>
+          {/* <div className={`album-cover ${isPlaying ? 'rotate' : ''}`} > */}
+          <div className='album-cover' style={{ transform: `rotate(${360 * (songTimeProgress / songDuration * 100) / 100}deg)` }}>
             <div className='speed-rate'>
               x1.0
             </div>
